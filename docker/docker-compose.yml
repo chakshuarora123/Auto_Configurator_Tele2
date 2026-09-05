@@ -1,0 +1,20 @@
+services:
+  configurator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file: ../.env
+    restart: unless-stopped
+    container_name: tele2-configurator
+    command: ["uv", "run", "tele2-configurator", "watch"]
+
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file: ../.env
+    restart: unless-stopped
+    container_name: tele2-dashboard
+    command: ["uv", "run", "tele2-configurator", "dashboard"]
+    ports:
+      - "8000:8000"
